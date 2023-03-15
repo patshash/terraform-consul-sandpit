@@ -1,5 +1,4 @@
 deployment_name = ""
-hcp_region = ""
 hcp_client_id = ""
 hcp_client_secret = ""
 aws_region = ""

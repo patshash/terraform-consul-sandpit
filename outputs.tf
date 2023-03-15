@@ -72,11 +72,6 @@ output "gcp_consul_bootstrap_token" {
 
 // hashicorp cloud platform (hcp) outputs
 
-output "hcp_region" {
-  description = "HCP region"
-  value       = var.hcp_region
-}
-
 output "hcp_client_id" {
   description = "HCP client id"
   value       = var.hcp_client_id

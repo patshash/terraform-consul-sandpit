@@ -22,12 +22,6 @@ variable "enable_cts_aws" {
 
 // hashicorp cloud platform (hcp) variables
 
-variable "hcp_region" {
-  description = "HCP region"
-  type        = string
-  default     = ""
-}
-
 variable "hcp_client_id" {
   description = "HCP client id"
   type        = string
