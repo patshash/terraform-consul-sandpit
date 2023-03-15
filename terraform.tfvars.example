@@ -1,0 +1,11 @@
+deployment_name = ""
+enable_cts_aws = false
+hcp_region = ""
+hcp_client_id = ""
+hcp_client_secret = ""
+aws_region = ""
+gcp_region = ""
+gcp_project_id = ""
+consul_helm_chart_version = ""
+consul_version = ""
+consul_ent_license = ""

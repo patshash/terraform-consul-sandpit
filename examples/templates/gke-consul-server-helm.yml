@@ -1,0 +1,57 @@
+global:
+  enabled: true
+  name: consul
+  peering:
+    enabled: true
+  adminPartitions:
+    enabled: true
+  image: "hashicorp/consul-enterprise:${consul_version}"
+  datacenter: ${deployment_name}
+  tls:
+    enabled: true
+    enableAutoEncrypt: true
+  enableConsulNamespaces: true
+  acls:
+    manageSystemACLs: true
+  enterpriseLicense:
+    secretName: consul-ent-license
+    secretKey: key
+  metrics:
+    enabled: true
+server:
+  replicas: ${replicas}
+  bootstrapExpect: ${replicas}
+  exposeGossipAndRPCPorts: true
+dns:
+  enabled: true
+  enableRedirection: true
+ui:
+  service:
+    type: LoadBalancer
+connectInject:
+  enabled: true
+  metrics:
+    defaultEnableMerging: true
+  consulNamespaces:
+    mirroringK8S: true  
+controller:
+  enabled: true
+meshGateway:
+  enabled: true
+  replicas: ${replicas}
+ingressGateways:
+  enabled: true
+  defaults:
+    replicas: ${replicas}
+    service:
+      type: LoadBalancer
+      ports:
+        - port: 80
+  gateways:
+    - name: ${cloud}-default-ingress-gateway
+terminatingGateways:
+  enabled: true
+  defaults:
+    replicas: ${replicas}
+  gateways:
+    - name: ${cloud}-default-terminating-gateway
