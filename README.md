@@ -28,6 +28,7 @@ The terraform module deploys ~106 resources. The major components include:
 **HCP**
 - HashiCorp Virtual Network (HVN)
 - HVN to AWS Transit Gateway (TGW) attachment and associated routes
+- HCP Consul server
 
 **AWS**
 - Virtual Private Cloud (VPC), associated subnets, route tables, and gateways
@@ -35,11 +36,11 @@ The terraform module deploys ~106 resources. The major components include:
 - Security Groups
 - Key Pair
 - Elastic Compute Cloud (EC2) instance (bastion host)
-- Elastic Kubernetes Service (EKS) cluster
+- Elastic Kubernetes Service (EKS) cluster (Consul Dataplane deployed)
 
 **GCP**
 - Virtual Private Cloud (VPC), associated subnets, route tables, and gateways
-- Google Kubernetes Engine (GKE) cluster
+- Google Kubernetes Engine (GKE) cluster (self-managed Consul server deployed)
 
 # Prerequisites
 
@@ -95,10 +96,10 @@ The Terraform AWS Provider authenticates via the AWS CLI rather than directly pr
 
 ## Post Deployment
 
-- kubeconfig file is updated to include the deployed EKS and GKE clusters
+- `kubeconfig` file is updated to include the deployed EKS and GKE clusters
 - AWS key pair pem file is created in the root directory
 
 ## Clean-Up
 
 1. Run `terraform destroy`
-2. Remove associated Kubernetes contexts from the kubeconfig file
+2. Remove associated Kubernetes contexts from the `kubeconfig` file
