@@ -47,26 +47,26 @@ The environment assumes you have an active HashiCorp Cloud Platform (HCP), Amazo
 
 **1. HCP**
 
-- Create a HCP account, for more information visit the [*Create an HCP Account*](https://developer.hashicorp.com/hcp/docs/hcp/create-account) page.
-- Obtain the `hcp_client_id` and `hcp_client_secret` by creating a Service Principle and associated Service Principal Key, for detailed steps, visit the [*Create a Service Principle*](https://developer.hashicorp.com/hcp/docs/hcp/security/service-principals) page.
+- Create an HCP account. For more information, visit the [*Create an HCP Account*](https://developer.hashicorp.com/hcp/docs/hcp/create-account) page.
+- Obtain the `hcp_client_id` and `hcp_client_secret` by creating a Service Principle and associated Service Principal Key. For detailed steps, visit the [*Create a Service Principle*](https://developer.hashicorp.com/hcp/docs/hcp/security/service-principals) page.
 
 The Terraform HCP Provider authenticates via a Client ID and a Client Secret.
 
 **2. AWS**
 
-- Create a AWS account, for more information visit the [*Create and Activate an AWS Account*](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account) page.
-- Install the AWS Command Line Interface (AWS CLI), for detailed steps, visit the [*Installing or upgrading the AWS CLI*](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) page.
-- Configure the AWS CLI, for detailed steps, visit the [*Configuration basics*](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-creds) page.
+- Create an AWS account. For more information, visit the [*Create and Activate an AWS Account*](https://aws.amazon.com/premiumsupport/knowledge-center/create-and-activate-aws-account) page.
+- Install the AWS Command Line Interface (AWS CLI). For detailed steps, visit the [*Installing or upgrading the AWS CLI*](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html) page.
+- Configure the AWS CLI. For detailed steps, visit the [*Configuration basics*](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-quickstart.html#cli-configure-quickstart-creds) page.
 
 The Terraform AWS Provider authenticates via the AWS CLI rather than directly providing the `access_key` and `secret_key` in the provider configuration.
 
 **3. GCP**
 
-- Create a GCP account, for more information visit the [*Getting Started*](https://cloud.google.com/docs/get-started) page.
-- Install the Google Cloud CLI (gcloud CLI), for detailed steps, visit the [*Install the Google Cloud CLI*](https://cloud.google.com/sdk/docs/install-sdk) page.
-- Configure the gcloud CLI, for detailed steps, visit the [*Initializing the gcloud CLI*](https://cloud.google.com/sdk/docs/initializing) page.
+- Create a GCP account. For more information, visit the [*Getting Started*](https://cloud.google.com/docs/get-started) page.
+- Install the Google Cloud CLI (gcloud CLI). For detailed steps, visit the [*Install the Google Cloud CLI*](https://cloud.google.com/sdk/docs/install-sdk) page.
+- Configure the gcloud CLI. For detailed steps, visit the [*Initializing the gcloud CLI*](https://cloud.google.com/sdk/docs/initializing) page.
 
-`gcloud init` will set the default project used by the gcloud CLI but if this step was not complete or you wish to change the project id, complete the following additional steps:
+`gcloud init` will set the default project used by the gcloud CLI, but if this step is not complete or you wish to change the project id, complete the following additional steps:
 
 - Obtain the GCP project id by executing `gcloud projects list`. If no projects exist, or to create a project, visit [*Creating and managing projects*](https://cloud.google.com/resource-manager/docs/creating-managing-projects) page.
 - Execute `gcloud config set project <PROJECT_ID>`
@@ -95,10 +95,10 @@ The Terraform AWS Provider authenticates via the AWS CLI rather than directly pr
 
 ## Post Deployment
 
-- kubeconfig file is updated include the deployed EKS and GKE clusters
-- AWS key pair pem file is create in the root directory
+- kubeconfig file is updated to include the deployed EKS and GKE clusters
+- AWS key pair pem file is created in the root directory
 
 ## Clean-Up
 
 1. Run `terraform destroy`
-2. Remove associated Kubernetes contexts from kubeconfig file
+2. Remove associated Kubernetes contexts from the kubeconfig file
