@@ -1,5 +1,4 @@
 deployment_name = ""
-enable_cts_aws = false
 hcp_region = ""
 hcp_client_id = ""
 hcp_client_secret = ""
