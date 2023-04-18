@@ -9,7 +9,7 @@ variable "helm_chart_version" {
 }
 
 variable "consul_version" {
-  description = "Version"
+  description = "Consul version"
   type        = string
 }
 

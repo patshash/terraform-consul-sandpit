@@ -12,14 +12,6 @@ variable "consul_version" {
   default     = "1.14.4"
 }
 
-// enable & disable modules
-
-variable "enable_cts_aws" {
-  description = "Deploy Consul-Terraform-Sync node in Amazon Web Services (AWS)"
-  type        = bool
-  default     = false
-}
-
 // hashicorp cloud platform (hcp) variables
 
 variable "hcp_client_id" {
