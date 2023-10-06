@@ -95,6 +95,17 @@ output "hcp_consul_root_token" {
   sensitive   = true
 }
 
+output "hcp_vault_public_fqdn" {
+  description = "HCP vault public fqdn"
+  value       = length(module.hcp-vault) > 0 ? module.hcp-vault.public_endpoint_url : null
+}
+
+output "hcp_vault_root_token" {
+  description = "HCP vault root token"
+  value       = length(module.hcp-vault) > 0 ? module.hcp-vault.root_token : null
+  sensitive   = true
+}
+
 // hashicorp self-managed consul outputs
 
 output "consul_helm_chart_version" {

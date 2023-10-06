@@ -16,9 +16,13 @@ terraform {
       source  = "hashicorp/helm"
       version = "~> 2.5.0"
     }
+    hcp = {
+      source = "hashicorp/hcp"
+      version = "~> 0.72.0"
+    }
     consul = {
       source  = "hashicorp/consul"
-      version = "~> 2.16.2"
+      version = "~> 2.18.0"
     }
   }
 }
