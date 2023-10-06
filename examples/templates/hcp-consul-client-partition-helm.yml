@@ -31,6 +31,9 @@ externalServers:
   httpsPort: ${external_server_https_port}
   useSystemRoots: true
   k8sAuthMethodHost: ${kubernetes_api_endpoint}
+dns:
+  enabled: true
+  enableRedirection: true
 connectInject:
   enabled: true
   metrics:
