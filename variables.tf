@@ -9,7 +9,21 @@ variable "deployment_name" {
 variable "consul_version" {
   description = "Consul version"
   type        = string
-  default     = "1.14.4"
+  default     = "1.16.2"
+}
+
+// enable & disable modules
+
+# variable "enable_cts_aws" {
+#   description = "Deploy Consul-Terraform-Sync node in Amazon Web Services (AWS)"
+#   type        = bool
+#   default     = false
+# }
+
+variable "enable_hcp_vault" {
+  description = "Deploy Vault on HashiCorp Cloud Platform (HCP)"
+  type        = bool
+  default     = false
 }
 
 // hashicorp cloud platform (hcp) variables
@@ -44,17 +58,17 @@ variable "hcp_vault_tier" {
   default     = "dev"
 }
 
-variable "hcp_boundary_init_user" {
-  description = "Initial admin user"
-  type        = string
-  default     = "admin"
-}
+# variable "hcp_boundary_init_user" {
+#   description = "Initial admin user"
+#   type        = string
+#   default     = "admin"
+# }
 
-variable "hcp_boundary_init_pass" {
-  description = "Initial admin user password"
-  type        = string
-  default     = "HashiCorp1!"
-}
+# variable "hcp_boundary_init_pass" {
+#   description = "Initial admin user password"
+#   type        = string
+#   default     = "HashiCorp1!"
+# }
 
 // amazon web services (aws) variables
 
@@ -85,7 +99,7 @@ variable "aws_public_subnets" {
 variable "aws_eks_cluster_version" {
   description = "AWS EKS cluster version"
   type        = string
-  default     = "1.22"
+  default     = "1.24"
 }
 
 variable "aws_eks_cluster_service_cidr" {
@@ -155,7 +169,7 @@ variable "gcp_gke_cluster_service_cidr" {
 variable "consul_helm_chart_version" {
   type        = string
   description = "Helm chart version"
-  default     = "1.0.4"
+  default     = "1.2.2"
 }
 
 variable "consul_ent_license" {

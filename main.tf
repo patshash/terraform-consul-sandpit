@@ -65,10 +65,21 @@ module "hcp-consul" {
     consul     = consul.hcp
    }
 
-  deployment_name         = var.deployment_name
-  hvn_id                  = module.hcp-hvn.id
-  tier                    = var.hcp_consul_tier
-  min_version             = var.consul_version
+  deployment_name = var.deployment_name
+  hvn_id          = module.hcp-hvn.id
+  tier            = var.hcp_consul_tier
+  min_version     = var.consul_version
+}
+
+// hcp vault
+
+module "hcp-vault" {
+  source = "./modules/vault/hcp"
+  count = var.enable_hcp_vault ? 1 : 0
+
+  deployment_name = var.deployment_name
+  hvn_id          = module.hcp-hvn.id
+  tier            = var.hcp_vault_tier
 }
 
 // consul datacenter in gcp
