@@ -17,7 +17,7 @@ resource "helm_release" "consul-server" {
   version       = var.helm_chart_version
   namespace     = "consul"
   timeout       = "300"
-  wait_for_jobs = true
+  wait          = true
   values        = [
     local_file.gke-consul-server-helm-values.content
   ]
