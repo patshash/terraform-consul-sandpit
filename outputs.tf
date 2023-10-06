@@ -38,14 +38,9 @@ output "aws_bastion_public_fqdn" {
 }
 
 output "aws_consul_default_ingress_public_fqdn" {
-  description = "Consul ingress gateway fqdn"
+  description = "Consul ingress gateway public fqdn"
   value       = "http://${module.consul-client-aws.ingress_public_fqdn}"
 }
-
-# output "aws_grafana_public_fqdn" {
-#   description = "Grafana public fqdn"
-#   value       = "http://${module.grafana.public_fqdn}"
-# }
 
 // google gloud platform (gcp) outputs
 

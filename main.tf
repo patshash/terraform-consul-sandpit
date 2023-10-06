@@ -113,9 +113,10 @@ module "consul-client-aws" {
     helm       = helm.eks
     consul     = consul.hcp
    }
+
   deployment_name         = var.deployment_name
   helm_chart_version      = var.consul_helm_chart_version
-  consul_version          = var.consul_version
+  consul_version        = "${var.consul_version}-ent"
   private_endpoint_url    = module.hcp-consul.private_endpoint_url
   bootstrap_token         = module.hcp-consul.bootstrap_token
   gossip_encrypt_key      = module.hcp-consul.gossip_encrypt_key
