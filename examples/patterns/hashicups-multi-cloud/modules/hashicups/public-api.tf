@@ -77,7 +77,7 @@ resource "kubernetes_deployment" "public-api" {
           }
           env {
             name = "PRODUCT_API_URI"
-            value = "http://product-api.products.svc.cluster.local:9090"
+            value = "http://product-api.virtual.products.ns.hashicups.ap.consul"
           }
           env {
             name = "PAYMENT_API_URI"
