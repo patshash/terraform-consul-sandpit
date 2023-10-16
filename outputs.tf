@@ -92,12 +92,12 @@ output "hcp_consul_root_token" {
 
 output "hcp_vault_public_fqdn" {
   description = "HCP vault public fqdn"
-  value       = length(module.hcp-vault) > 0 ? module.hcp-vault.public_endpoint_url : null
+  value       = var.enable_hcp_vault == true ? module.hcp-vault[0].public_endpoint_url : null
 }
 
 output "hcp_vault_root_token" {
   description = "HCP vault root token"
-  value       = length(module.hcp-vault) > 0 ? module.hcp-vault.root_token : null
+  value       = var.enable_hcp_vault == true ? module.hcp-vault[0].root_token : null
   sensitive   = true
 }
 
