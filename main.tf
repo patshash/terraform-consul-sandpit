@@ -85,7 +85,7 @@ module "hcp-vault" {
 // consul datacenter in gcp
 
 module "consul-server-gcp" {
-  source = "./modules/consul/gcp/consul"
+  source = "./modules/consul/gcp"
   providers = {
     kubernetes = kubernetes.gke
     helm       = helm.gke
@@ -107,7 +107,7 @@ module "consul-server-gcp" {
 // consul client (default partition) in aws
 
 module "consul-client-aws" {
-  source    = "./modules/consul/aws/consul"
+  source    = "./modules/consul/aws"
   providers = {
     kubernetes = kubernetes.eks
     helm       = helm.eks
@@ -116,7 +116,7 @@ module "consul-client-aws" {
 
   deployment_name         = var.deployment_name
   helm_chart_version      = var.consul_helm_chart_version
-  consul_version        = "${var.consul_version}-ent"
+  consul_version          = "${var.consul_version}-ent"
   private_endpoint_url    = module.hcp-consul.private_endpoint_url
   bootstrap_token         = module.hcp-consul.bootstrap_token
   gossip_encrypt_key      = module.hcp-consul.gossip_encrypt_key
