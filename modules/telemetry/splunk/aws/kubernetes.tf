@@ -11,7 +11,7 @@ data "kubernetes_service" "splunk" {
 
 data "kubernetes_secret" "splunk" {
   metadata {
-    name = "splunk-splunk-secret"
+    name = "splunk-telemetry-secret"
     namespace = "telemetry"
   }
 

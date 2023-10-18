@@ -130,17 +130,17 @@ module "consul-client-aws" {
   ]
 }
 
-// splunk enterprise in aws
-
-module "splunk-enterprise-aws" {
-  source = "./modules/telemetry/splunk/aws"
+module "telemetry" {
+  source    = "./modules/telemetry"
   providers = {
-    kubernetes = kubernetes.eks
-    helm       = helm.eks
-   }
+    kubernetes.eks = kubernetes.eks
+    kubernetes.gke = kubernetes.gke
+    helm.eks       = helm.eks
+    helm.gke       = helm.gke
+  }
 
   count = var.enable_telemetry ? 1 : 0
 
-  deployment_name    = var.deployment_name
-  helm_chart_version = var.splunk_operator_helm_chart_version
+  deployment_name                    = var.deployment_name
+  splunk_operator_helm_chart_version = var.splunk_operator_helm_chart_version
 }

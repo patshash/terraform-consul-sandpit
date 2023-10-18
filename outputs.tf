@@ -111,12 +111,12 @@ output "consul_helm_chart_version" {
 // splunk variables
 
 output "splunk_public_fqdn" {
-  description = "Splunk service public fqdn"
-  value       = var.enable_telemetry == true ? "https://${module.splunk-enterprise-aws[0].public_fqdn}:8000" : null
+  description = "splunk service public fqdn"
+  value       = var.enable_telemetry == true ? "https://${module.telemetry[0].splunk_public_fqdn}:8000" : null
 }
 
 output "splunk_admin_password" {
-  description = "Splunk admin password"
-  value       = var.enable_telemetry == true ? module.splunk-enterprise-aws[0].admin_password : null
+  description = "splunk admin password"
+  value       = var.enable_telemetry == true ? module.telemetry[0].splunk_admin_password : null
   sensitive   = true
 }

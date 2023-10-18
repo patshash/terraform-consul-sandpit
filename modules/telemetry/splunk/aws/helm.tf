@@ -1,5 +1,5 @@
 resource "local_file" "eks-splunk-enterprise-helm-values" {
-  content = templatefile("${path.root}/examples/templates/splunk-enterprise-helm.yml", {
+  content = templatefile("${path.module}/templates/splunk-enterprise-helm.yml.tpl", {
     })
   filename = "${path.module}/eks-splunk-enterprise-helm-values.yml.tmp"
 }
