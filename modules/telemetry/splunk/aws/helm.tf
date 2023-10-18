@@ -10,7 +10,7 @@ resource "helm_release" "splunk-enterprise" {
   chart         = "splunk-enterprise"
   repository    = "https://splunk.github.io/splunk-operator"
   version       = var.helm_chart_version
-  namespace     = "splunk"
+  namespace     = "telemetry"
   timeout       = "300"
   wait          = true
   values        = [
@@ -18,6 +18,6 @@ resource "helm_release" "splunk-enterprise" {
   ]
 
   depends_on    = [
-    kubernetes_namespace.splunk
+    kubernetes_namespace.telemetry
   ]
 }

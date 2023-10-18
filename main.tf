@@ -133,7 +133,7 @@ module "consul-client-aws" {
 // splunk enterprise in aws
 
 module "splunk-enterprise-aws" {
-  source = "./modules/splunk/aws"
+  source = "./modules/telemetry/splunk/aws"
   providers = {
     kubernetes = kubernetes.eks
     helm       = helm.eks

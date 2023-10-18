@@ -1,7 +1,7 @@
 data "kubernetes_service" "splunk" {
   metadata {
     name = "splunk-stdln-standalone-service"
-    namespace = "splunk"
+    namespace = "telemetry"
   }
   
   depends_on = [
@@ -12,7 +12,7 @@ data "kubernetes_service" "splunk" {
 data "kubernetes_secret" "splunk" {
   metadata {
     name = "splunk-splunk-secret"
-    namespace = "splunk"
+    namespace = "telemetry"
   }
 
   depends_on = [
@@ -20,8 +20,8 @@ data "kubernetes_secret" "splunk" {
   ]
 }
 
-resource "kubernetes_namespace" "splunk" {
+resource "kubernetes_namespace" "telemetry" {
   metadata {
-    name = "splunk"
+    name = "telemetry"
   }
 }
