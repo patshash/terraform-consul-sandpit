@@ -1,66 +1,66 @@
 // generic outputs
 
 output "deployment_id" {
-  description = "Deployment identifier"
+  description = "deployment identifier"
   value       = local.deployment_id
 }
 
 output "deployment_name" {
-  description = "Deployment name, used to prefix resources"
+  description = "deployment name to prefix resources"
   value       = var.deployment_name
 }
 
 output "consul_version" {
-  description = "Consul version"
+  description = "consul version"
   value       = var.consul_version
 }
 
 // amazon web services (aws) outputs
 
 output "aws_region" {
-  description = "AWS region"
+  description = "aws region"
   value       = var.aws_region
 }
 
 output "aws_vpc_id" {
-  description = "AWS VPC id"
+  description = "aws vpc id"
   value       = module.infra-aws.vpc_id
 }
 
 output "aws_key_pair_name" {
-  description = "AWS key pair name"
+  description = "aws key pair name"
   value       = module.infra-aws.key_pair_name
 }
 
 output "aws_bastion_public_fqdn" {
-  description = "AWS public fqdn of bastion node"
+  description = "aws public fqdn of bastion node"
   value       = module.infra-aws.bastion_public_fqdn
 }
 
 output "aws_consul_default_ingress_public_fqdn" {
-  description = "Consul ingress gateway public fqdn"
+  description = "consul ingress gateway public fqdn"
   value       = "http://${module.consul-client-aws.ingress_public_fqdn}"
 }
 
 // google gloud platform (gcp) outputs
 
 output "gcp_region" {
-  description = "GCP region"
+  description = "gcp region"
   value       = var.gcp_region
 }
 
 output "gcp_project_id" {
-  description = "GCP project"
+  description = "gcp project"
   value       = var.gcp_project_id
 }
 
 output "gcp_consul_ui_public_fqdn" {
-  description = "GCP consul datacenter ui public fqdn"
+  description = "gcp consul datacenter ui public fqdn"
   value       = "https://${module.consul-server-gcp.ui_public_fqdn}"
 }
 
 output "gcp_consul_bootstrap_token" {
-  description = "GCP consul acl bootstrap token"
+  description = "gcp consul acl bootstrap token"
   value       = module.consul-server-gcp.bootstrap_token
   sensitive   = true
 }
@@ -68,36 +68,36 @@ output "gcp_consul_bootstrap_token" {
 // hashicorp cloud platform (hcp) outputs
 
 output "hcp_client_id" {
-  description = "HCP client id"
+  description = "hcp client id"
   value       = var.hcp_client_id
   sensitive   = true
 }
 
 output "hcp_client_secret" {
-  description = "HCP client secret"
+  description = "hcp client secret"
   value       = var.hcp_client_secret
   sensitive   = true
 }
 
 output "hcp_consul_public_fqdn" {
-  description = "HCP consul public fqdn"
-  value       = module.hcp-consul.public_endpoint_url
+  description = "hcp consul public fqdn"
+  value       = module.consul-hcp.public_endpoint_url
 }
 
 output "hcp_consul_root_token" {
-  description = "HCP consul root token"
-  value       = module.hcp-consul.root_token
+  description = "hcp consul root token"
+  value       = module.consul-hcp.root_token
   sensitive   = true
 }
 
 output "hcp_vault_public_fqdn" {
   description = "HCP vault public fqdn"
-  value       = var.enable_hcp_vault == true ? module.hcp-vault[0].public_endpoint_url : null
+  value       = var.enable_hcp_vault == true ? module.vault-hcp[0].public_endpoint_url : null
 }
 
 output "hcp_vault_root_token" {
   description = "HCP vault root token"
-  value       = var.enable_hcp_vault == true ? module.hcp-vault[0].root_token : null
+  value       = var.enable_hcp_vault == true ? module.vault-hcp[0].root_token : null
   sensitive   = true
 }
 
@@ -106,4 +106,17 @@ output "hcp_vault_root_token" {
 output "consul_helm_chart_version" {
   description = "Helm chart version"
   value       = var.consul_helm_chart_version
+}
+
+// splunk variables
+
+output "splunk_public_fqdn" {
+  description = "Splunk service public fqdn"
+  value       = var.enable_telemetry == true ? "https://${module.splunk-enterprise-aws[0].public_fqdn}:8000" : null
+}
+
+output "splunk_admin_password" {
+  description = "Splunk admin password"
+  value       = var.enable_telemetry == true ? module.splunk-enterprise-aws[0].admin_password : null
+  sensitive   = true
 }
