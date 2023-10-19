@@ -141,6 +141,7 @@ module "telemetry" {
 
   count = var.enable_telemetry ? 1 : 0
 
-  deployment_name                    = var.deployment_name
-  splunk_operator_helm_chart_version = var.splunk_operator_helm_chart_version
+  deployment_name                            = var.deployment_name
+  splunk_operator_helm_chart_version         = var.splunk_operator_helm_chart_version
+  opentelemetry_collector_helm_chart_version = var.opentelemetry_collector_helm_chart_version
 }

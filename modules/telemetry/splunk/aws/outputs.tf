@@ -7,3 +7,8 @@ output "admin_password" {
   description = "admin password"
   value       = data.kubernetes_secret.splunk.data.password
 }
+
+output "hec_token" {
+  description = "hec password"
+  value       = data.kubernetes_secret.splunk.data.hec_token
+}

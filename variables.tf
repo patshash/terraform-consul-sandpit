@@ -166,10 +166,16 @@ variable "consul_serf_lan_port" {
   default     = 9301
 }
 
-// splunk operator variables
+// telemetry variables
 
 variable "splunk_operator_helm_chart_version" {
   description = "helm chart version"
   type        = string
   default     = "2.4.0"
+}
+
+variable "opentelemetry_collector_helm_chart_version" {
+  description = "helm chart version"
+  type        = string
+  default     = "0.72.0"
 }
