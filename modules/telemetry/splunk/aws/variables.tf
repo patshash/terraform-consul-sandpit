@@ -3,7 +3,12 @@ variable "deployment_name" {
   type        = string
 }
 
-variable "helm_chart_version" {
+variable "namespace" {
+  description = "kubernetes namespace"
   type        = string
+}
+
+variable "helm_chart_version" {
   description = "helm chart version"
+  type        = string
 }

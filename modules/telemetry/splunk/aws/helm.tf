@@ -10,7 +10,7 @@ resource "helm_release" "splunk-enterprise" {
   chart         = "splunk-enterprise"
   repository    = "https://splunk.github.io/splunk-operator"
   version       = var.helm_chart_version
-  namespace     = "telemetry"
+  namespace     = var.namespace
   timeout       = "300"
   wait          = true
   values        = [
