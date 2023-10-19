@@ -94,10 +94,10 @@ provider "helm" {
 
 provider "consul" {
   alias = "hcp"
-  address        = module.hcp-consul.public_endpoint_url
+  address        = module.consul-hcp.public_endpoint_url
   scheme         = "https"
   datacenter     = "${var.deployment_name}-hcp"
-  token          = module.hcp-consul.root_token
+  token          = module.consul-hcp.root_token
 }
 
 provider "consul" {

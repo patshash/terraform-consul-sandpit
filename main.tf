@@ -59,7 +59,7 @@ module "infra-gcp" {
 
 // hcp consul
 
-module "hcp-consul" {
+module "consul-hcp" {
   source = "./modules/consul/hcp"
   providers = {
     consul     = consul.hcp
@@ -73,8 +73,9 @@ module "hcp-consul" {
 
 // hcp vault
 
-module "hcp-vault" {
+module "vault-hcp" {
   source = "./modules/vault/hcp"
+
   count = var.enable_hcp_vault ? 1 : 0
 
   deployment_name = var.deployment_name
@@ -117,14 +118,30 @@ module "consul-client-aws" {
   deployment_name         = var.deployment_name
   helm_chart_version      = var.consul_helm_chart_version
   consul_version          = "${var.consul_version}-ent"
-  private_endpoint_url    = module.hcp-consul.private_endpoint_url
-  bootstrap_token         = module.hcp-consul.bootstrap_token
-  gossip_encrypt_key      = module.hcp-consul.gossip_encrypt_key
-  client_ca_cert          = module.hcp-consul.client_ca_cert
+  private_endpoint_url    = module.consul-hcp.private_endpoint_url
+  bootstrap_token         = module.consul-hcp.bootstrap_token
+  gossip_encrypt_key      = module.consul-hcp.gossip_encrypt_key
+  client_ca_cert          = module.consul-hcp.client_ca_cert
   replicas                = var.consul_replicas
   kubernetes_api_endpoint = data.aws_eks_cluster.cluster.endpoint
 
   depends_on = [
     module.infra-aws
   ]
+}
+
+module "telemetry" {
+  source    = "./modules/telemetry"
+  providers = {
+    kubernetes.eks = kubernetes.eks
+    kubernetes.gke = kubernetes.gke
+    helm.eks       = helm.eks
+    helm.gke       = helm.gke
+  }
+
+  count = var.enable_telemetry ? 1 : 0
+
+  deployment_name                            = var.deployment_name
+  splunk_operator_helm_chart_version         = var.splunk_operator_helm_chart_version
+  opentelemetry_collector_helm_chart_version = var.opentelemetry_collector_helm_chart_version
 }

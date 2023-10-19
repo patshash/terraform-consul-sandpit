@@ -1,27 +1,27 @@
 // generic variables
 
 variable "deployment_name" {
-  description = "Deployment name, used to prefix resources"
+  description = "deployment name to prefix resources"
   type        = string
   default     = "sandpit"
 }
 
 variable "consul_version" {
-  description = "Consul version"
+  description = "consul version"
   type        = string
   default     = "1.16.2"
 }
 
 // enable & disable modules
 
-# variable "enable_cts_aws" {
-#   description = "Deploy Consul-Terraform-Sync node in Amazon Web Services (AWS)"
-#   type        = bool
-#   default     = false
-# }
-
 variable "enable_hcp_vault" {
-  description = "Deploy Vault on HashiCorp Cloud Platform (HCP)"
+  description = "deploy vault on hashiCorp cloud platform (hcp)"
+  type        = bool
+  default     = false
+}
+
+variable "enable_telemetry" {
+  description = "deploy telemetry services"
   type        = bool
   default     = false
 }
@@ -29,137 +29,113 @@ variable "enable_hcp_vault" {
 // hashicorp cloud platform (hcp) variables
 
 variable "hcp_client_id" {
-  description = "HCP client id"
+  description = "hcp client id"
   type        = string
   default     = ""
 }
 
 variable "hcp_client_secret" {
-  description = "HCP client secret"
+  description = "hcp client secret"
   type        = string
   default     = ""
 }
 
 variable "hcp_hvn_cidr" {
-  description = "HCP HVN cidr"
+  description = "hcp hvn cidr"
   type        = string
   default     = "172.25.16.0/20"
 }
 
 variable "hcp_consul_tier" {
-  description = "HCP Consul cluster tier"
+  description = "hcp consul cluster tier"
   type        = string
   default     = "development"
 }
 
 variable "hcp_vault_tier" {
-  description = "HCP Vault cluster tier"
+  description = "hcp vault cluster tier"
   type        = string
   default     = "dev"
 }
 
-# variable "hcp_boundary_init_user" {
-#   description = "Initial admin user"
-#   type        = string
-#   default     = "admin"
-# }
-
-# variable "hcp_boundary_init_pass" {
-#   description = "Initial admin user password"
-#   type        = string
-#   default     = "HashiCorp1!"
-# }
-
 // amazon web services (aws) variables
 
 variable "aws_region" {
-  description = "AWS region"
+  description = "aws region"
   type        = string
   default     = ""
 }
 
 variable "aws_vpc_cidr" {
-  description = "AWS VPC CIDR"
+  description = "aws vpc cidr"
   type        = string
   default     = "10.200.0.0/16"
 }
 
 variable "aws_private_subnets" {
-  description = "AWS private subnets"
+  description = "aws private subnets"
   type        = list
   default     = ["10.200.20.0/24", "10.200.21.0/24", "10.200.22.0/24"]
 }
 
 variable "aws_public_subnets" {
-  description = "AWS public subnets"
+  description = "aws public subnets"
   type        = list
   default     = ["10.200.10.0/24", "10.200.11.0/24", "10.200.12.0/24"]
 }
 
 variable "aws_eks_cluster_version" {
-  description = "AWS EKS cluster version"
+  description = "aws eks cluster version"
   type        = string
   default     = "1.24"
 }
 
 variable "aws_eks_cluster_service_cidr" {
-  description = "AWS EKS cluster service cidr"
+  description = "aws eks cluster service cidr"
   type        = string
   default     = "172.20.0.0/18"
 }
 
 variable "aws_eks_worker_instance_type" {
-  description = "AWS EKS EC2 worker node instance type"
+  description = "aws eks ec2 worker node instance type"
   type        = string
   default     = "m5.large"
 }
 
 variable "aws_eks_worker_desired_capacity" {
-  description = "AWS EKS desired worker capacity in the autoscaling group"
+  description = "aws eks desired worker autoscaling group capacity"
   type        = number
   default     = 2
-}
-
-variable "aws_ami_consul_terraform_sync" {
-  description = "AWS AMI for consul-terraform-sync"
-  type        = string
-  default     = "ami-0fc2c7bc0d520a239"
-}
-
-variable "aws_ami_hashicups_product_api_db" {
-  description = "AWS AMI for hashicups product-api-db"
-  type        = string
-  default     = "ami-082c7add2ac0c19f6"
 }
 
 // google cloud platform (gcp) variables
 
 variable "gcp_region" {
-  description = "GCP region"
+  description = "gcp region"
   type        = string
   default     = ""
 }
 
 variable "gcp_project_id" {
-  description = "GCP project id"
+  description = "gcp project id"
   type        = string
   default     = ""
 }
 
 variable "gcp_private_subnets" {
-  description = "GCP private subnets"
+  description = "gcp private subnets"
   type        = list
   default     = ["10.210.20.0/24", "10.210.21.0/24", "10.210.22.0/24"]
 }
 
 variable "gcp_gke_pod_subnet" {
-  description = "GCP GKE pod subnet"
+  description = "gcp gke pod subnet"
   type        = string
   default     = "10.211.20.0/23"
 }
 
 variable "gcp_gke_cluster_service_cidr" {
-  description = "GCP GKE cluster service cidr"
+  description = "gcp gke cluster service cidr"
   type        = string
   default     = "172.20.0.0/18"
 }
@@ -168,24 +144,38 @@ variable "gcp_gke_cluster_service_cidr" {
 
 variable "consul_helm_chart_version" {
   type        = string
-  description = "Helm chart version"
+  description = "helm chart version"
   default     = "1.2.2"
 }
 
 variable "consul_ent_license" {
-  description = "Consul enterprise license"
+  description = "consul enterprise license"
   type        = string
   default     = ""
 }
 
 variable "consul_replicas" {
-  description = "Number of Consul replicas"
+  description = "consul replicas"
   type        = number
   default     = 1
 }
 
 variable "consul_serf_lan_port" {
-  description = "Consul serf lan port"
+  description = "consul serf lan port"
   type        = number
   default     = 9301
+}
+
+// telemetry variables
+
+variable "splunk_operator_helm_chart_version" {
+  description = "helm chart version"
+  type        = string
+  default     = "2.4.0"
+}
+
+variable "opentelemetry_collector_helm_chart_version" {
+  description = "helm chart version"
+  type        = string
+  default     = "0.72.0"
 }
