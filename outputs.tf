@@ -112,7 +112,7 @@ output "consul_helm_chart_version" {
 
 output "splunk_public_fqdn" {
   description = "splunk service public fqdn"
-  value       = var.enable_telemetry == true ? "https://${module.telemetry[0].splunk_public_fqdn}:8000" : null
+  value       = var.enable_telemetry == true ? module.telemetry[0].splunk_public_fqdn : null
 }
 
 output "splunk_admin_password" {
