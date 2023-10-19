@@ -1,5 +1,5 @@
 resource "local_file" "eks-opentelemetry-collector-helm-values" {
-  content = templatefile("${path.module}/templates/opentelemetry-collector-helm.yml.tpl", {
+  content = templatefile("${path.root}/modules/telemetry/examples/templates/opentelemetry-collector-helm.yml.tpl", {
     name         = "eks"
     hec_endpoint = var.splunk_hec_endpoint
     hec_token    = var.splunk_hec_token
