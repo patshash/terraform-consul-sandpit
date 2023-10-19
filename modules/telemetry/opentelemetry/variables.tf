@@ -13,6 +13,11 @@ variable "helm_chart_version" {
   type        = string
 }
 
+variable "collector_name" {
+  description = "collector name"
+  type        = string
+}
+
 variable "splunk_hec_endpoint" {
   description = "splunk hec endpoint"
   type        = string
