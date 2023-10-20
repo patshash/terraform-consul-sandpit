@@ -19,16 +19,3 @@ data "kubernetes_secret" "splunk" {
   helm_release.splunk-enterprise
   ]
 }
-
-data "kubernetes_all_namespaces" "allns" {}
-
-resource "kubernetes_namespace" "telemetry" {
-  for_each = toset([ for k in tolist([var.namespace]) : k if !contains(keys(data.kubernetes_all_namespaces.allns), k) ])
-  metadata {
-    name = each.key
-  }
-
-  depends_on = [
-    data.kubernetes_all_namespaces.allns
-  ]
-}
