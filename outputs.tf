@@ -108,7 +108,7 @@ output "consul_helm_chart_version" {
   value       = var.consul_helm_chart_version
 }
 
-// splunk variables
+// telemetry outputs
 
 output "splunk_public_fqdn" {
   description = "splunk service public fqdn"
@@ -119,4 +119,9 @@ output "splunk_admin_password" {
   description = "splunk admin password"
   value       = var.enable_telemetry == true ? module.telemetry[0].splunk_admin_password : null
   sensitive   = true
+}
+
+output "grafana_public_fqdn" {
+  description = "splunk service public fqdn"
+  value       = var.enable_telemetry == true ? module.telemetry[0].grafana_public_fqdn : null
 }

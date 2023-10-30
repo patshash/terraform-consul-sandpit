@@ -9,7 +9,22 @@ variable "namespace" {
   default     = "telemetry"
 }
 
+variable "gcp_consul_token" {
+  description = "consul acl token"
+  type        = string
+}
+
 variable "splunk_operator_helm_chart_version" {
+  description = "helm chart version"
+  type        = string
+}
+
+variable "prometheus_helm_chart_version" {
+  description = "helm chart version"
+  type        = string
+}
+
+variable "grafana_helm_chart_version" {
   description = "helm chart version"
   type        = string
 }

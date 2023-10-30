@@ -142,6 +142,9 @@ module "telemetry" {
   count = var.enable_telemetry ? 1 : 0
 
   deployment_name                            = var.deployment_name
+  gcp_consul_token                           = module.consul-server-gcp.bootstrap_token
   splunk_operator_helm_chart_version         = var.splunk_operator_helm_chart_version
+  prometheus_helm_chart_version              = var.prometheus_helm_chart_version
+  grafana_helm_chart_version                 = var.grafana_helm_chart_version
   opentelemetry_collector_helm_chart_version = var.opentelemetry_collector_helm_chart_version
 }

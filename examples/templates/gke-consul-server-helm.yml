@@ -18,10 +18,19 @@ global:
     secretKey: key
   metrics:
     enabled: true
+    enableAgentMetrics: true
+    agentMetricsRetentionTime: "1m"
 server:
-  replicas: ${replicas}
-  bootstrapExpect: ${replicas}
+  replicas: 3
+  bootstrapExpect: 3
   exposeGossipAndRPCPorts: true
+  extraConfig: |
+    {
+      "telemetry": {
+        "prometheus_retention_time": "72h",
+        "disable_hostname": true
+      }
+    }
 dns:
   enabled: true
   enableRedirection: true

@@ -87,7 +87,7 @@ variable "aws_public_subnets" {
 variable "aws_eks_cluster_version" {
   description = "aws eks cluster version"
   type        = string
-  default     = "1.24"
+  default     = "1.27"
 }
 
 variable "aws_eks_cluster_service_cidr" {
@@ -99,13 +99,13 @@ variable "aws_eks_cluster_service_cidr" {
 variable "aws_eks_worker_instance_type" {
   description = "aws eks ec2 worker node instance type"
   type        = string
-  default     = "m5.large"
+  default     = "m6i.large"
 }
 
 variable "aws_eks_worker_desired_capacity" {
   description = "aws eks desired worker autoscaling group capacity"
   type        = number
-  default     = 2
+  default     = 3
 }
 
 // google cloud platform (gcp) variables
@@ -172,6 +172,18 @@ variable "splunk_operator_helm_chart_version" {
   description = "helm chart version"
   type        = string
   default     = "2.4.0"
+}
+
+variable "prometheus_helm_chart_version" {
+  description = "helm chart version"
+  type        = string
+  default     = "25.2.0"
+}
+
+variable "grafana_helm_chart_version" {
+  description = "helm chart version"
+  type        = string
+  default     = "6.61.1"
 }
 
 variable "opentelemetry_collector_helm_chart_version" {
