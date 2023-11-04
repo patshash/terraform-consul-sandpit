@@ -17,7 +17,7 @@ resource "kubernetes_namespace" "consul" {
 
 resource "kubernetes_secret" "consul-bootstrap-token" {
   metadata {
-    name      = "tphan-test-hcp-bootstrap-token"
+    name      = "${var.deployment_name}-hcp-bootstrap-token"
     namespace = "consul"
   }
 
@@ -28,7 +28,7 @@ resource "kubernetes_secret" "consul-bootstrap-token" {
 
 resource "kubernetes_secret" "consul-client-secrets" {
   metadata {
-    name      = "tphan-test-hcp-client-secrets"
+    name      = "${var.deployment_name}-hcp-client-secrets"
     namespace = "consul"
   }
 
