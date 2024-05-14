@@ -1,0 +1,16 @@
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: route-hashicups-nginx-root
+  namespace: frontend
+spec:
+  parentRefs:
+  - name: api-gw-hashicups
+    namespace: frontend
+  rules:
+  - backendRefs:
+    - kind: Service
+      name: nginx
+      port: 80
+      namespace: frontend

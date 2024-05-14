@@ -37,11 +37,6 @@ output "aws_bastion_public_fqdn" {
   value       = module.infra-aws.bastion_public_fqdn
 }
 
-output "aws_consul_default_ingress_public_fqdn" {
-  description = "consul ingress gateway public fqdn"
-  value       = "http://${module.consul-client-aws.ingress_public_fqdn}"
-}
-
 // google gloud platform (gcp) outputs
 
 output "gcp_region" {

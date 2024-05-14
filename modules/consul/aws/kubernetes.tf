@@ -1,14 +1,3 @@
-data "kubernetes_service" "consul-ingress-gateway" {
-  metadata {
-    name = "consul-aws-default-ingress-gateway"
-    namespace = "consul"
-  }
-
-  depends_on = [
-    helm_release.consul-client
-  ]
-}
-
 resource "kubernetes_namespace" "consul" {
   metadata {
     name = "consul"
