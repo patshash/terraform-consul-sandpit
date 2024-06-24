@@ -19,6 +19,7 @@ global:
   metrics:
     enabled: true
     enableAgentMetrics: true
+    disableAgentHostName: true
     agentMetricsRetentionTime: "1m"
 server:
   replicas: 3
@@ -27,8 +28,7 @@ server:
   extraConfig: |
     {
       "telemetry": {
-        "prometheus_retention_time": "72h",
-        "disable_hostname": true
+        "prometheus_retention_time": "72h"
       }
     }
 dns:
@@ -39,6 +39,9 @@ ui:
     type: LoadBalancer
 connectInject:
   enabled: true
+  apiGateway:
+    managedGatewayClass:
+      serviceType: LoadBalancer
   metrics:
     defaultEnableMerging: true
   consulNamespaces:
@@ -48,16 +51,6 @@ controller:
 meshGateway:
   enabled: true
   replicas: ${replicas}
-ingressGateways:
-  enabled: true
-  defaults:
-    replicas: ${replicas}
-    service:
-      type: LoadBalancer
-      ports:
-        - port: 80
-  gateways:
-    - name: ${cloud}-default-ingress-gateway
 terminatingGateways:
   enabled: true
   defaults:

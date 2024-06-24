@@ -39,6 +39,9 @@ dns:
   enableRedirection: true
 connectInject:
   enabled: true
+  apiGateway:
+    managedGatewayClass:
+      serviceType: LoadBalancer
   metrics:
     defaultEnableMerging: true
   consulNamespaces:

@@ -124,36 +124,6 @@ resource "kubernetes_deployment" "nginx" {
   ]
 }
 
-resource "consul_config_entry" "ig-nginx" {
-  provider = consul.hcp
-
-  name        = "aws-hashicups-ingress-gateway"
-  kind        = "ingress-gateway"
-  partition   = "hashicups"
-  namespace   = "default"
-
-  config_json = jsonencode({
-    Listeners = [
-      {
-        Port     = 80
-        Protocol = "http"
-        Services = [
-          { 
-            Name      = "nginx"
-            Namespace = "frontend" 
-            Hosts     = ["*"]
-          }
-        ]
-      }
-    ]
-  })
-
-  depends_on = [
-    consul_config_entry.eks-proxy_defaults,
-    time_sleep.wait_5_seconds
-  ]
-}
-
 resource "consul_config_entry" "si-nginx" {
   provider = consul.hcp
 
@@ -166,9 +136,9 @@ resource "consul_config_entry" "si-nginx" {
     Sources = [
       {
         Partition  = "hashicups"
-        Namespace  = "default"
+        Namespace  = "frontend"
         Action     = "allow"
-        Name       = "aws-hashicups-ingress-gateway"
+        Name       = "api-gw-hashicups"
         Type       = "consul"
       }
     ]

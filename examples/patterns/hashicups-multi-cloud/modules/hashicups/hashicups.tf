@@ -48,6 +48,20 @@ resource "consul_config_entry" "gke-proxy_defaults" {
   })
 }
 
+// create api-gateway resources
+
+resource "kubernetes_manifest" "eks-hashicups-api-gw-listener" {
+  provider = kubernetes.eks-hashicups
+
+  manifest = yamldecode(file("${path.root}/templates/api-gw-http-listener.yml"))
+}
+
+resource "kubernetes_manifest" "eks-hashicups-api-gw-http-route" {
+  provider = kubernetes.eks-hashicups
+
+  manifest = yamldecode(file("${path.root}/templates/api-gw-http-route.yml"))
+}
+
 resource "time_sleep" "wait_5_seconds" {
   create_duration = "5s"
 
