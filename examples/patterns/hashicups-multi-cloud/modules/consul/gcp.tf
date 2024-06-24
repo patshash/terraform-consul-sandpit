@@ -59,7 +59,7 @@ resource "kubernetes_secret" "gke-consul-bootstrap-token" {
   provider = kubernetes.gke-hashicups
 
   metadata {
-    name      = "tphan-test-gcp-bootstrap-token"
+    name      = "${var.deployment_name}-gcp-bootstrap-token"
     namespace = "consul"
   }
 
@@ -76,7 +76,7 @@ resource "kubernetes_secret" "gke-consul-client-secrets" {
   provider = kubernetes.gke-hashicups
 
   metadata {
-    name      = "tphan-test-gcp-client-secrets"
+    name      = "${var.deployment_name}-gcp-client-secrets"
     namespace = "consul"
   }
 

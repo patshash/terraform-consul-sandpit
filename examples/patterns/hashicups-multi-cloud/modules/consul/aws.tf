@@ -12,7 +12,7 @@ resource "kubernetes_secret" "eks-consul-bootstrap-token" {
   provider = kubernetes.eks-hashicups
 
   metadata {
-    name      = "tphan-test-hcp-bootstrap-token"
+    name      = "${var.deployment_name}-hcp-bootstrap-token"
     namespace = "consul"
   }
 
@@ -25,7 +25,7 @@ resource "kubernetes_secret" "eks-consul-client-secrets" {
   provider = kubernetes.eks-hashicups
 
   metadata {
-    name      = "tphan-test-hcp-client-secrets"
+    name      = "${var.deployment_name}-hcp-client-secrets"
     namespace = "consul"
   }
 
@@ -74,20 +74,20 @@ resource "helm_release" "eks-consul-client-hashicups" {
   ]
 }
 
-// retreive consul hashicups partition ingress gateway public fqdn
+# // retreive consul hashicups partition ingress gateway public fqdn
 
-data "kubernetes_service" "eks-consul-ingress-gateway" {
-  provider = kubernetes.eks-hashicups
+# data "kubernetes_service" "eks-consul-ingress-gateway" {
+#   provider = kubernetes.eks-hashicups
 
-  metadata {
-    name = "consul-aws-hashicups-ingress-gateway"
-    namespace = "consul"
-  }
+#   metadata {
+#     name = "consul-aws-hashicups-ingress-gateway"
+#     namespace = "consul"
+#   }
 
-  depends_on = [
-    helm_release.eks-consul-client-hashicups
-  ]
-}
+#   depends_on = [
+#     helm_release.eks-consul-client-hashicups
+#   ]
+# }
 
 # // set consul default partition cluster peering through mesh gateways
 

@@ -8,14 +8,14 @@ data "aws_subnets" "all" {
 data "aws_subnets" "private" {
   filter {
     name   = "tag:Name"
-    values = ["*private*"]
+    values = ["*${var.deployment_id}-private*"]
   }
 }
 
 data "aws_security_groups" "consul" {
   filter {
     name   = "group-name"
-    values = ["*consul*"]
+    values = ["*${var.deployment_id}-consul*"]
   }
 }
 
