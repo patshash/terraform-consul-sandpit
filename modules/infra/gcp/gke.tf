@@ -29,6 +29,10 @@ module "gke" {
       auto_upgrade              = true
     },
   ]
+
+  depends_on = [ 
+    google_project_service.project 
+  ]
 }
 
 data "google_client_config" "default" {}
