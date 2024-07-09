@@ -9,7 +9,7 @@ variable "deployment_name" {
 variable "consul_version" {
   description = "consul version"
   type        = string
-  default     = "1.16.2"
+  default     = "1.17.3"
 }
 
 // enable & disable modules
@@ -87,7 +87,7 @@ variable "aws_public_subnets" {
 variable "aws_eks_cluster_version" {
   description = "aws eks cluster version"
   type        = string
-  default     = "1.28"
+  default     = "1.30"
 }
 
 variable "aws_eks_cluster_service_cidr" {
@@ -145,7 +145,7 @@ variable "gcp_gke_cluster_service_cidr" {
 variable "consul_helm_chart_version" {
   type        = string
   description = "helm chart version"
-  default     = "1.2.2"
+  default     = "1.3.6"
 }
 
 variable "consul_ent_license" {

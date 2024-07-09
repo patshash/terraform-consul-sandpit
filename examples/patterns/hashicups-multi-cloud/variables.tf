@@ -29,7 +29,7 @@ variable "aws_region" {
 variable "aws_eks_cluster_version" {
   description = "AWS EKS cluster version"
   type        = string
-  default     = "1.24"
+  default     = "1.30"
 }
 
 variable "aws_eks_cluster_service_cidr" {
