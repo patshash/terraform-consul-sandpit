@@ -1,5 +1,5 @@
 resource "local_file" "gke-consul-server-helm-values" {
-  content = templatefile("${path.root}/examples/templates/gke-consul-server-helm.yml", {
+  content = templatefile("${path.root}/templates/gke-consul-server-helm.yml", {
     deployment_name       = "${var.deployment_name}-gcp"
     consul_version        = var.consul_version
     replicas              = var.replicas

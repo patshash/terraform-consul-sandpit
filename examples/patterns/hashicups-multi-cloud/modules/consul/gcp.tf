@@ -94,7 +94,7 @@ resource "kubernetes_secret" "gke-consul-client-secrets" {
 // create and deploy consul hashicups partition helm
 
 resource "local_file" "gke-client-hashicups-partition-helm-values" {
-  content = templatefile("../../../examples/templates/gke-consul-client-partition-helm.yml", {
+  content = templatefile("${path.root}templates/gke-consul-client-partition-helm.yml", {
     partition_name                = "hashicups"
     deployment_name               = "${var.deployment_name}-gcp"
     consul_version                = var.min_version

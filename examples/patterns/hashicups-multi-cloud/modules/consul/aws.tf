@@ -42,7 +42,7 @@ resource "kubernetes_secret" "eks-consul-client-secrets" {
 // create and deploy consul hashicups partition helm
 
 resource "local_file" "eks-client-hashicups-partition-helm-values" {
-  content = templatefile("../../../examples/templates/hcp-consul-client-partition-helm.yml", {
+  content = templatefile("${path.root}/templates/hcp-consul-client-partition-helm.yml", {
     partition_name                = "hashicups"
     deployment_name               = "${var.deployment_name}-hcp"
     consul_version                = var.min_version
