@@ -133,6 +133,13 @@ module "sg-telemetry" {
       description = "prometheus-tcp"
       cidr_blocks = "${module.vpc.vpc_cidr_block}"
     },
+    {
+      from_port   = 9100
+      to_port     = 9100
+      protocol    = "tcp"
+      description = "prometheus-node-exporter-tcp"
+      cidr_blocks = "${module.vpc.vpc_cidr_block}"
+    }
   ]
 
   egress_with_cidr_blocks = [

@@ -7,8 +7,8 @@ server:
 alertmanager:
   enabled: false
 kube-state-metrics:
-  enabled: false
+  enabled: true
 prometheus-node-exporter:
-  enabled: false
+  enabled: true
 prometheus-pushgateway:
   enabled: false
