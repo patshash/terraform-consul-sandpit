@@ -41,22 +41,22 @@ output "aws_bastion_public_fqdn" {
 
 output "gcp_region" {
   description = "gcp region"
-  value       = var.gcp_region
+  value       = var.enable_gcp == true ? var.gcp_region : null
 }
 
 output "gcp_project_id" {
   description = "gcp project"
-  value       = var.gcp_project_id
+  value       = var.enable_gcp == true ? var.gcp_project_id : null
 }
 
 output "gcp_consul_ui_public_fqdn" {
   description = "gcp consul datacenter ui public fqdn"
-  value       = "https://${module.consul-server-gcp.ui_public_fqdn}"
+  value       = var.enable_gcp == true ? module.consul-server-gcp.ui_public_fqdn[0] : null
 }
 
 output "gcp_consul_bootstrap_token" {
   description = "gcp consul acl bootstrap token"
-  value       = module.consul-server-gcp.bootstrap_token
+  value       = var.enable_gcp == true ? module.consul-server-gcp.bootstrap_token[0] : null
   sensitive   = true
 }
 

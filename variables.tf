@@ -14,6 +14,12 @@ variable "consul_version" {
 
 // enable & disable modules
 
+variable "enable_gcp" {
+  description = "deploy gcp"
+  type        = bool
+  default     = false
+}
+
 variable "enable_hcp_vault" {
   description = "deploy vault on hashiCorp cloud platform (hcp)"
   type        = bool
@@ -102,6 +108,12 @@ variable "aws_eks_worker_instance_type" {
   default     = "m6i.large"
 }
 
+variable "aws_eks_worker_capacity_type" {
+  description = "aws eks ec2 worker node capacity type"
+  type        = string
+  default     = "ON_DEMAND"
+}
+
 variable "aws_eks_worker_desired_capacity" {
   description = "aws eks desired worker autoscaling group capacity"
   type        = number
@@ -177,13 +189,13 @@ variable "splunk_operator_helm_chart_version" {
 variable "prometheus_helm_chart_version" {
   description = "helm chart version"
   type        = string
-  default     = "25.2.0"
+  default     = "25.24.0"
 }
 
 variable "grafana_helm_chart_version" {
   description = "helm chart version"
   type        = string
-  default     = "6.61.1"
+  default     = "8.3.4"
 }
 
 variable "opentelemetry_collector_helm_chart_version" {

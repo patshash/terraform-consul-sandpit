@@ -78,17 +78,17 @@ data "google_client_config" "default" {}
 
 provider "kubernetes" {
   alias = "gke"
-  host  = module.infra-gcp.cluster_api_endpoint
+  host  = var.enable_gcp == true ? module.infra-gcp.cluster_api_endpoint[0] : null
   token = data.google_client_config.default.access_token
-  cluster_ca_certificate = base64decode(module.infra-gcp.cluster_ca_certificate)
+  cluster_ca_certificate =var.enable_gcp == true ? base64decode(module.infra-gcp.cluster_ca_certificate[0]) : null
 }
 
 provider "helm" {
   alias = "gke"
   kubernetes {
-    host  = module.infra-gcp.cluster_api_endpoint
+    host  = var.enable_gcp == true ? module.infra-gcp.cluster_api_endpoint[0] : null
     token = data.google_client_config.default.access_token
-    cluster_ca_certificate = base64decode(module.infra-gcp.cluster_ca_certificate)
+    cluster_ca_certificate = var.enable_gcp == true ? base64decode(module.infra-gcp.cluster_ca_certificate[0]) : null
   }
 }
 

@@ -38,6 +38,7 @@ module "infra-aws" {
   eks_cluster_version         = var.aws_eks_cluster_version
   eks_cluster_service_cidr    = var.aws_eks_cluster_service_cidr
   eks_worker_instance_type    = var.aws_eks_worker_instance_type
+  eks_worker_capacity_type    = var.aws_eks_worker_capacity_type
   eks_worker_desired_capacity = var.aws_eks_worker_desired_capacity
   hcp_hvn_provider_account_id = module.hcp-hvn.provider_account_id
   hcp_hvn_cidr                = var.hcp_hvn_cidr
@@ -48,6 +49,8 @@ module "infra-aws" {
 
 module "infra-gcp" {
   source  = "./modules/infra/gcp"
+
+  count = var.enable_gcp ? 1 : 0
   
   region                   = var.gcp_region
   project_id               = var.gcp_project_id
@@ -92,6 +95,8 @@ module "consul-server-gcp" {
     helm       = helm.gke
     consul     = consul.gcp
    }
+
+  count = var.enable_gcp ? 1 : 0
 
   deployment_name       = var.deployment_name
   helm_chart_version    = var.consul_helm_chart_version
@@ -142,7 +147,7 @@ module "telemetry" {
   count = var.enable_telemetry ? 1 : 0
 
   deployment_name                            = var.deployment_name
-  gcp_consul_token                           = module.consul-server-gcp.bootstrap_token
+  gcp_consul_token                           = var.enable_gcp == true ? module.consul-server-gcp.bootstrap_token[0] : ""
   splunk_operator_helm_chart_version         = var.splunk_operator_helm_chart_version
   prometheus_helm_chart_version              = var.prometheus_helm_chart_version
   grafana_helm_chart_version                 = var.grafana_helm_chart_version
