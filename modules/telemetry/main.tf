@@ -69,6 +69,8 @@ module "opentelemetry-gke" {
     helm       = helm.gke
    }
 
+  count = var.gcp_consul_token == "" ? 0 : 1
+
   deployment_name                  = var.deployment_name
   namespace                        = var.namespace
   collector_name                   = "gke"
