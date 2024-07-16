@@ -38,6 +38,11 @@ variable "eks_worker_instance_type" {
   type        = string
 }
 
+variable "eks_worker_capacity_type" {
+  description = "EKS worker nodes capacity type"
+  type        = string
+}
+
 variable "eks_worker_desired_capacity" {
   description = "EKS worker nodes desired capacity"
   type        = number

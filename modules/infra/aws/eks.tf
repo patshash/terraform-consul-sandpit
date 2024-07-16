@@ -25,7 +25,7 @@ module "eks" {
       desired_size           = var.eks_worker_desired_capacity
 
       instance_types         = ["${var.eks_worker_instance_type}"]
-      capacity_type          = "SPOT"
+      capacity_type          = var.eks_worker_capacity_type
       key_name               = module.key_pair.key_pair_name
       vpc_security_group_ids = [module.sg-consul.security_group_id, module.sg-telemetry.security_group_id]
     }
