@@ -4,9 +4,13 @@ import boto3
 import json
 import base64
 import logging
+import time
 from botocore.exceptions import NoCredentialsError, PartialCredentialsError, ClientError
 from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.backends import default_backend
+
+# record start time
+start = time.time()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -100,3 +104,9 @@ if 'data' in datakey_response:
 
 else:
     logger.error("Error generating data key: %s", datakey_response.get('errors', 'Unknown error'))
+
+# record end time
+end = time.time()
+
+# print the difference between start and end time in milli. secs
+print("Execution time is :", (end-start) * 1000, "ms")

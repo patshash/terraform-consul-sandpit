@@ -29,7 +29,7 @@ resource "kubernetes_job" "this" {
       spec {
         container {
           name  = "transit-encrypt"
-          image = "phantony/transit-encrypt-service:1.4"
+          image = "phantony/transit-encrypt-service:1.6"
           env {
             name = "VAULT_ADDR"
             value = var.vault_addr
