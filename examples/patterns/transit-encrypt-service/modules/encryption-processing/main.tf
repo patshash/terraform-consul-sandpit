@@ -29,7 +29,7 @@ resource "kubernetes_job" "this" {
       spec {
         container {
           name  = "transit-encrypt"
-          image = "phantony/transit-encrypt-service:1.6"
+          image = "phantony/transit-encrypt-service:0.2"
           env {
             name = "VAULT_ADDR"
             value = var.vault_addr
@@ -60,13 +60,17 @@ resource "kubernetes_job" "this" {
           }
           env {
             name = "S3_ENCRYPTED_FILE_KEY"
-            value = "${var.test_id}/encrypted_data.json"
+            value = "${var.test_id}/encrypted_data"
+          }
+          env {
+            name = "S3_ENCRYPTED_META_FILE_KEY"
+            value = "${var.test_id}/encrypted_data.meta"
           }
           resources {
-            limits = {
-              cpu    = "0.5"
-              memory = "2.5G"
-            }
+            # limits = {
+            #   cpu    = "0.5"
+            #   memory = "4.0G"
+            # }
             requests = {
               cpu    = "0.5"
               memory = "0.5G"

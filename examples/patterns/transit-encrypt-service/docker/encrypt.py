@@ -39,8 +39,8 @@ def encrypt_data(plaintext_data, key):
     key_bytes = base64.b64decode(key)
     iv = b'\x00' * 12  # Initialization vector
     encryptor = Cipher(algorithms.AES(key_bytes), modes.GCM(iv), backend=default_backend()).encryptor()
-    encrypted_data = encryptor.update(plaintext_data.encode()) + encryptor.finalize()
-    return base64.b64encode(encrypted_data).decode(), base64.b64encode(encryptor.tag).decode()
+    encrypted_data = encryptor.update(plaintext_data) + encryptor.finalize()
+    return encrypted_data, base64.b64encode(encryptor.tag).decode()
 
 def download_file_from_s3(S3_BUCKET_NAME, S3_SOURCE_FILE_KEY, LOCAL_FILE_NAME):
     """ Download a file from S3 to a local file. """
@@ -55,17 +55,32 @@ def download_file_from_s3(S3_BUCKET_NAME, S3_SOURCE_FILE_KEY, LOCAL_FILE_NAME):
         else:
             raise
 
-def save_encrypted_data(encrypted_data, tag, ciphertext_key, filepath):
-    """ Save encrypted data into a JSON file. """
-    with open(filepath, 'w') as file:
-        json.dump({'encrypted_data': encrypted_data, 'tag': tag, 'ciphertext_key': ciphertext_key}, file, indent=4)
+def save_encrypted_data(encrypted_data, filepath):
+    """ Save encrypted data into a file. """
+    with open(filepath, 'wb') as file:
+        file.write(encrypted_data)
 
-def upload_file_to_s3(S3_BUCKET_NAME, S3_ENCRYPTED_FILE_KEY, LOCAL_FILE_PATH):
+def create_meta_data(tag, ciphertext_key, filepath):
+    """ Create metadata for the encrypted data. """
+    with open(filepath, 'w') as file:
+        json.dump({'tag': tag, 'ciphertext_key': ciphertext_key}, file, indent=4)
+
+def upload_encrypted_file_to_s3(S3_BUCKET_NAME, S3_ENCRYPTED_FILE_KEY, LOCAL_FILE_PATH):
     """ Upload a file to S3. """
     s3 = boto3.client('s3')
     try:
         s3.upload_file(LOCAL_FILE_PATH, S3_BUCKET_NAME, S3_ENCRYPTED_FILE_KEY)
-        logger.info("File uploaded successfully to S3.")
+        logger.info("Encrypted file uploaded successfully to S3.")
+    except ClientError as e:
+        logger.error(f"An error occurred: {e}")
+        raise
+
+def upload_meta_file_to_s3(S3_BUCKET_NAME, S3_ENCRYPTED_META_FILE_KEY, LOCAL_FILE_PATH):
+    """ Upload a file to S3. """
+    s3 = boto3.client('s3')
+    try:
+        s3.upload_file(LOCAL_FILE_PATH, S3_BUCKET_NAME, S3_ENCRYPTED_META_FILE_KEY)
+        logger.info("Metadata file uploaded successfully to S3.")
     except ClientError as e:
         logger.error(f"An error occurred: {e}")
         raise
@@ -79,7 +94,10 @@ S3_BUCKET_NAME = os.getenv('S3_BUCKET_NAME')
 S3_SOURCE_FILE_KEY = os.getenv('S3_SOURCE_FILE_KEY')
 LOCAL_FILE_NAME = os.getenv('LOCAL_FILE_NAME')
 S3_ENCRYPTED_FILE_KEY = os.getenv('S3_ENCRYPTED_FILE_KEY')
-ENCRYPTED_FILE_PATH = 'encrypted_data.json'  # Filepath to save the encrypted file
+ENCRYPTED_FILE_PATH = 'encrypted_data'  # Filepath to save the encrypted file
+ENCRYPTED_META_FILE_PATH = 'encrypted_data.meta' # Filepath to save the meta file
+S3_ENCRYPTED_META_FILE_KEY = os.getenv('S3_ENCRYPTED_META_FILE_KEY')
+
 
 # Generate a new data key
 datakey_response = generate_data_key(VAULT_ADDR, VAULT_TOKEN, VAULT_NAMESPACE, VAULT_KEY_NAME)
@@ -87,20 +105,28 @@ if 'data' in datakey_response:
     plaintext_key = datakey_response['data']['plaintext']
     ciphertext_key = datakey_response['data']['ciphertext']
 
-    # Download and load JSON data
+    # Download and load data
     download_file_from_s3(S3_BUCKET_NAME, S3_SOURCE_FILE_KEY, LOCAL_FILE_NAME)
-    data = json.load(open(LOCAL_FILE_NAME))
-    data_json = json.dumps(data)
+    data = open(LOCAL_FILE_NAME, 'rb')
+    if data.mode == 'rb':
+        original_data = data.read()
 
     # Encrypt the data using the plaintext data key
-    encrypted_data, tag = encrypt_data(data_json, plaintext_key)
+    encrypted_data, tag = encrypt_data(original_data, plaintext_key)
 
     # Save the encrypted output to a file
-    save_encrypted_data(encrypted_data, tag, ciphertext_key, ENCRYPTED_FILE_PATH)
-    logger.info("Encrypted data has been saved to 'encrypted_data.json'")
+    save_encrypted_data(encrypted_data, ENCRYPTED_FILE_PATH)
+    logger.info("Encrypted data has been saved to 'encrypted_data'")
+
+    # Save the metadata to a file
+    create_meta_data(tag, ciphertext_key, ENCRYPTED_META_FILE_PATH)
+    logger.info("Metadata has been saved to 'encrypted_data.meta'")
 
     # Upload encrypted file back to S3
-    upload_file_to_s3(S3_BUCKET_NAME, S3_ENCRYPTED_FILE_KEY, ENCRYPTED_FILE_PATH)
+    upload_encrypted_file_to_s3(S3_BUCKET_NAME, S3_ENCRYPTED_FILE_KEY, ENCRYPTED_FILE_PATH)
+
+    # Upload metadata file back to S3
+    upload_meta_file_to_s3(S3_BUCKET_NAME, S3_ENCRYPTED_META_FILE_KEY, ENCRYPTED_META_FILE_PATH)
 
 else:
     logger.error("Error generating data key: %s", datakey_response.get('errors', 'Unknown error'))
