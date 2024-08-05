@@ -2,7 +2,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "~> 4.21.0"
+      version = "~> 5.60.0"
     }
     google = {
       source  = "hashicorp/google"
@@ -42,7 +42,7 @@ provider "google" {
 }
 
 data "aws_eks_cluster" "cluster" {
-  name = module.infra-aws.eks_cluster_id
+  name = module.infra-aws.eks_cluster_name
 }
 
 provider "kubernetes" {
