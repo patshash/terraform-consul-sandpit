@@ -78,28 +78,10 @@ variable "aws_vpc_cidr" {
   default     = "10.200.0.0/16"
 }
 
-variable "aws_private_subnets" {
-  description = "aws private subnets"
-  type        = list
-  default     = ["10.200.20.0/24", "10.200.21.0/24", "10.200.22.0/24"]
-}
-
-variable "aws_public_subnets" {
-  description = "aws public subnets"
-  type        = list
-  default     = ["10.200.10.0/24", "10.200.11.0/24", "10.200.12.0/24"]
-}
-
 variable "aws_eks_cluster_version" {
   description = "aws eks cluster version"
   type        = string
   default     = "1.30"
-}
-
-variable "aws_eks_cluster_service_cidr" {
-  description = "aws eks cluster service cidr"
-  type        = string
-  default     = "172.20.0.0/18"
 }
 
 variable "aws_eks_worker_instance_type" {
@@ -111,7 +93,7 @@ variable "aws_eks_worker_instance_type" {
 variable "aws_eks_worker_capacity_type" {
   description = "aws eks ec2 worker node capacity type"
   type        = string
-  default     = "ON_DEMAND"
+  default     = "SPOT"
 }
 
 variable "aws_eks_worker_desired_capacity" {

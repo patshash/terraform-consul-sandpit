@@ -33,10 +33,7 @@ module "infra-aws" {
   region                      = var.aws_region
   deployment_id               = local.deployment_id
   vpc_cidr                    = var.aws_vpc_cidr
-  public_subnets              = var.aws_public_subnets
-  private_subnets             = var.aws_private_subnets
   eks_cluster_version         = var.aws_eks_cluster_version
-  eks_cluster_service_cidr    = var.aws_eks_cluster_service_cidr
   eks_worker_instance_type    = var.aws_eks_worker_instance_type
   eks_worker_capacity_type    = var.aws_eks_worker_capacity_type
   eks_worker_desired_capacity = var.aws_eks_worker_desired_capacity
