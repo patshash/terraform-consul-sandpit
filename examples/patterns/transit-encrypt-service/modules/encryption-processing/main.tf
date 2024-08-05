@@ -29,7 +29,7 @@ resource "kubernetes_job" "this" {
       spec {
         container {
           name  = "transit-encrypt"
-          image = "phantony/transit-encrypt-service:0.2"
+          image = "phantony/transit-encrypt-service:0.4"
           env {
             name = "VAULT_ADDR"
             value = var.vault_addr
@@ -47,24 +47,12 @@ resource "kubernetes_job" "this" {
             value = var.test_id
           }
           env {
-            name = "LOCAL_FILE_NAME"
-            value = "${var.test_file}"
-          }
-          env {
             name = "S3_BUCKET_NAME"
             value = var.deployment_id
           }
           env {
-            name = "S3_SOURCE_FILE_KEY"
+            name = "S3_UNENCRYPTED_FILE_PATH"
             value = "source/${var.test_file}"
-          }
-          env {
-            name = "S3_ENCRYPTED_FILE_KEY"
-            value = "${var.test_id}/encrypted_data"
-          }
-          env {
-            name = "S3_ENCRYPTED_META_FILE_KEY"
-            value = "${var.test_id}/encrypted_data.meta"
           }
           resources {
             # limits = {
