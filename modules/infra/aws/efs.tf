@@ -67,31 +67,25 @@ resource "aws_efs_mount_target" "efs_mt_2" {
   security_groups = [aws_security_group.efs.id]
 }
 
+/*
+The Storage Class needs to be applied manually.
 
-resource "kubectl_manifest" "efs_storage_class" {
-  yaml_body = <<-YAML
-kind: StorageClass
-apiVersion: storage.k8s.io/v1
-metadata:
-  name: efs-sc1
-provisioner: efs.csi.aws.com
-parameters:
-  provisioningMode: efs-ap
-  fileSystemId: ${aws_efs_file_system.kube.id}
-  directoryPerms: "700"
-  YAML
+resource "kubernetes_manifest" "efs_storage_class" {
+  provider = kubernetes.eks
+
+  manifest = yamldecode(file("../../templates/StorageClassEFS.yaml"))
 
   depends_on = [
     aws_efs_file_system.kube
   ]
 }
+*/
 
-#v2.0.6-eksbuild.1
 resource "aws_eks_addon" "aws_efs_csi_driver" {
   
   cluster_name  = module.eks.cluster_name
   addon_name    = "aws-efs-csi-driver"
-  addon_version = "v2.0.6-eksbuild.1"
+  addon_version = var.aws_efs_csi_driver_version
 
   resolve_conflicts_on_create = "OVERWRITE"
   resolve_conflicts_on_update = "OVERWRITE"

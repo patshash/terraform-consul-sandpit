@@ -43,6 +43,12 @@ variable "eks_worker_desired_capacity" {
   type        = number
 }
 
+variable "aws_efs_csi_driver_version" {
+  description = "EKS EFS CSI Driver Addon version to install"
+  type        = string
+  default     = "v2.0.6-eksbuild.1"
+}
+
 variable "hcp_hvn_provider_account_id" {
   description = "HCP HVN provider account id"
   type        = string
