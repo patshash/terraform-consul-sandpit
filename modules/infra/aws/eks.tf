@@ -28,7 +28,7 @@ module "eks" {
       instance_types         = ["${var.eks_worker_instance_type}"]
       capacity_type          = var.eks_worker_capacity_type
       key_name               = module.key_pair.key_pair_name
-      vpc_security_group_ids = [module.sg-consul.security_group_id, module.sg-telemetry.security_group_id]
+      vpc_security_group_ids = [module.sg-consul.security_group_id, module.sg-telemetry.security_group_id, aws_security_group.efs.id]
 
       // extend default 20 gb volume size to 50 gb
       block_device_mappings = [
@@ -45,6 +45,7 @@ module "eks" {
       // required for aws-ebs-csi-driver
       iam_role_additional_policies = {
         AmazonEBSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+        AmazonEFSCSIDriverPolicy = "arn:aws:iam::aws:policy/service-role/AmazonEFSCSIDriverPolicy"
       }
     }
   }
